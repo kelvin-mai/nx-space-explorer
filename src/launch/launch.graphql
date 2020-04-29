@@ -1,6 +1,7 @@
 type Launch {
   id: ID!
-  site: Mission
+  site: String
+  mission: Mission
   rocket: Rocket
   isBooked: Boolean!
 }
@@ -29,7 +30,6 @@ type Query {
 type Mutation {
   bookTrips(launchIds: [ID]!): TripUpdateResponse!
   cancelTrip(launchId: ID!): TripUpdateResponse!
-  login(email: String): String # login token
 }
 
 type TripUpdateResponse {

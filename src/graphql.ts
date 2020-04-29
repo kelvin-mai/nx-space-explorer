@@ -13,7 +13,8 @@ export enum PatchSize {
 
 export interface Launch {
     id: string;
-    site?: Mission;
+    site?: string;
+    mission?: Mission;
     rocket?: Rocket;
     isBooked: boolean;
 }
