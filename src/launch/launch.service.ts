@@ -1,8 +1,8 @@
 import { Injectable, HttpService } from '@nestjs/common';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { LaunchResponse } from './launch.models';
-import { Observable } from 'rxjs';
+import { LaunchModel, SpacexLaunch } from './launch.models';
 
 @Injectable()
 export class LaunchService {
@@ -10,9 +10,9 @@ export class LaunchService {
 
   constructor(private http: HttpService) {}
 
-  private toLaunch(launch: any): LaunchResponse {
-    return ({
-      id: launch.flight_number || 0,
+  private toLaunch(launch: SpacexLaunch): LaunchModel {
+    return {
+      id: String(launch.flight_number || 0),
       site: launch.launch_site && launch.launch_site.site_name,
       mission: {
         name: launch.mission_name,
@@ -24,18 +24,18 @@ export class LaunchService {
         name: launch.rocket.rocket_name,
         type: launch.rocket.rocket_type,
       },
-    } as unknown) as LaunchResponse;
+    };
   }
 
-  getAllLaunches(): Observable<LaunchResponse[]> {
+  getAllLaunches(): Observable<LaunchModel[]> {
     return this.http
-      .get(`${this.apiUrl}/launches`)
-      .pipe(map(({ data }) => data.map(l => this.toLaunch(l))));
+      .get<SpacexLaunch[]>(`${this.apiUrl}/launches`)
+      .pipe(map(({ data }) => data.map(this.toLaunch)));
   }
 
-  getLaunchById(id: number): Observable<LaunchResponse> {
+  getLaunchById(id: number): Observable<LaunchModel> {
     return this.http
-      .get(`${this.apiUrl}/launches/${id}`)
+      .get<SpacexLaunch>(`${this.apiUrl}/launches/${id}`)
       .pipe(map(({ data }) => this.toLaunch(data)));
   }
 }
