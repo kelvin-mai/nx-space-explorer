@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
@@ -11,11 +12,13 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepo: Repository<UserEntity>,
+    private configService: ConfigService,
   ) {}
 
   createToken({ id, email }: UserEntity) {
     const user: User = { id, email, trips: [] };
-    return jwt.sign(user, 'secret');
+    const secret = this.configService.get('JWT_SECRET');
+    return jwt.sign(user, secret);
   }
 
   createUser(email: string) {

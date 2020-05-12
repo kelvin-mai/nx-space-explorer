@@ -5,11 +5,14 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+  constructor(private configService: ConfigService) {}
+
   canActivate(context: ExecutionContext): boolean {
     const ctx = GqlExecutionContext.create(context).getContext();
     if (!ctx.headers.authorization) {
@@ -24,9 +27,9 @@ export class AuthGuard implements CanActivate {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
     const token = auth.split(' ')[1];
-
     try {
-      return jwt.verify(token, 'secret');
+      const secret = this.configService.get('JWT_SECRET');
+      return jwt.verify(token, secret);
     } catch (err) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }

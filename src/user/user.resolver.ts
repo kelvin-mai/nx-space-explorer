@@ -10,7 +10,7 @@ export class UserResolver {
   constructor(private userService: UserService) {}
 
   @Query()
-  @UseGuards(new AuthGuard())
+  @UseGuards(AuthGuard)
   me(@Context('user') user: User) {
     return user;
   }
