@@ -1,6 +1,6 @@
 import { Resolver, Args, ResolveField, Parent } from '@nestjs/graphql';
 
-import { PatchSize } from 'src/graphql';
+import { PatchSize } from '@/graphql';
 import { MissionModel } from './launch.models';
 
 @Resolver('Mission')

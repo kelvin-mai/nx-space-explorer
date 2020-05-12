@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
 
+import { User } from '@/graphql';
 import { UserEntity } from './user.entity';
 
 @Injectable()
@@ -13,7 +14,8 @@ export class UserService {
   ) {}
 
   createToken({ id, email }: UserEntity) {
-    return jwt.sign({ id, email }, 'secret');
+    const user: User = { id, email, trips: [] };
+    return jwt.sign(user, 'secret');
   }
 
   createUser(email: string) {

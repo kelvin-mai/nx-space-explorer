@@ -1,4 +1,4 @@
-import { Launch } from 'src/graphql';
+import { Launch } from '@/graphql';
 
 export interface SpacexLaunch {
   flight_number: number;
