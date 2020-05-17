@@ -1,18 +1,36 @@
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Context,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
-import { User } from '@/graphql';
+import { LaunchService } from '@/launch/launch.service';
 import { AuthGuard } from './auth.gaurd';
 import { UserService } from './user.service';
+import { UserModel } from './user.models';
+import { UserEntity } from './user.entity';
 
 @Resolver('User')
 export class UserResolver {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private launchService: LaunchService,
+  ) {}
 
   @Query()
   @UseGuards(AuthGuard)
-  me(@Context('user') user: User) {
-    return user;
+  me(@Context('user') user: UserModel) {
+    return this.userService.getUserByEmail(user.email);
+  }
+
+  @ResolveField()
+  trips(@Parent() { trips }: UserEntity) {
+    return this.launchService.getLaunchByIds(trips);
   }
 
   @Mutation()
@@ -22,5 +40,20 @@ export class UserResolver {
       user = await this.userService.createUser(email);
     }
     return this.userService.createToken(user);
+  }
+
+  @Mutation()
+  @UseGuards(AuthGuard)
+  async bookTrips(
+    @Args('launchIds') ids: number[],
+    @Context('user') user: UserModel,
+  ) {
+    return this.userService.addTrips(ids, user);
+  }
+
+  @Mutation()
+  @UseGuards(AuthGuard)
+  cancelTrip(@Args('launchId') id: number, @Context('user') user: UserModel) {
+    return this.userService.removeTrip(id, user);
   }
 }

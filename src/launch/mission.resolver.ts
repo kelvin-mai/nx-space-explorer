@@ -6,12 +6,12 @@ import { MissionModel } from './launch.models';
 @Resolver('Mission')
 export class MissionResolver {
   @ResolveField()
-  missionPatch(@Parent() launch: MissionModel, @Args('size') size: PatchSize) {
+  missionPatch(@Parent() mission: MissionModel, @Args('size') size: PatchSize) {
     switch (size) {
       case PatchSize.SMALL:
-        return launch.missionPatchSmall;
+        return mission.missionPatchSmall;
       case PatchSize.LARGE:
-        return launch.missionPatchLarge;
+        return mission.missionPatchLarge;
       default:
         return null;
     }

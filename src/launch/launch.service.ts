@@ -1,6 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 import { LaunchModel, SpacexLaunch } from './launch.models';
 
@@ -37,5 +37,13 @@ export class LaunchService {
     return this.http
       .get<SpacexLaunch>(`${this.apiUrl}/launches/${id}`)
       .pipe(map(({ data }) => this.toLaunch(data)));
+  }
+
+  getLaunchByIds(ids: number[]) {
+    return ids.length
+      ? forkJoin(ids.map(id => this.getLaunchById(id))).pipe(
+          mergeMap(res => of(res)),
+        )
+      : of([]);
   }
 }

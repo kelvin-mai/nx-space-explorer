@@ -26,14 +26,3 @@ type Query {
   launches: [Launch]!
   launch(id: ID!): Launch
 }
-
-type Mutation {
-  bookTrips(launchIds: [ID]!): TripUpdateResponse!
-  cancelTrip(launchId: ID!): TripUpdateResponse!
-}
-
-type TripUpdateResponse {
-  success: Boolean!
-  message: String
-  launches: [Launch]
-}

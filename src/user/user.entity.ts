@@ -7,4 +7,7 @@ export class UserEntity extends BaseEntity {
 
   @Column('text')
   email: string;
+
+  @Column('int', { array: true, nullable: true })
+  trips: number[];
 }

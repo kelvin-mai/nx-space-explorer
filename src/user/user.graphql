@@ -1,7 +1,7 @@
 type User {
   id: ID!
   email: String!
-  trips: [Launch]!
+  trips: [Launch]
 }
 
 type Query {
@@ -10,4 +10,12 @@ type Query {
 
 type Mutation {
   login(email: String): String
+  bookTrips(launchIds: [ID]!): TripUpdateResponse!
+  cancelTrip(launchId: ID!): TripUpdateResponse!
+}
+
+type TripUpdateResponse {
+  success: Boolean!
+  message: String
+  launches: [Launch]
 }

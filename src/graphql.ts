@@ -36,20 +36,20 @@ export interface IQuery {
     me(): User | Promise<User>;
 }
 
+export interface User {
+    id: string;
+    email: string;
+    trips?: Launch[];
+}
+
 export interface IMutation {
+    login(email?: string): string | Promise<string>;
     bookTrips(launchIds: string[]): TripUpdateResponse | Promise<TripUpdateResponse>;
     cancelTrip(launchId: string): TripUpdateResponse | Promise<TripUpdateResponse>;
-    login(email?: string): string | Promise<string>;
 }
 
 export interface TripUpdateResponse {
     success: boolean;
     message?: string;
     launches?: Launch[];
-}
-
-export interface User {
-    id: string;
-    email: string;
-    trips: Launch[];
 }
