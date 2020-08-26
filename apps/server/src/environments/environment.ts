@@ -1,8 +1,11 @@
+import { EntitySchema } from 'typeorm';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+
 export const environment = () => ({
   production: false,
   port: Number(process.env.PORT),
   jwtSecret: process.env.JWT_SECRET,
-  database: {
+  database: (entities: EntitySchema[]): TypeOrmModuleOptions => ({
     type: 'postgres',
     host: process.env.DB_HOST,
     port: 5432,
@@ -11,6 +14,6 @@ export const environment = () => ({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: false,
-    entities: ['dist/**/*.entity.js'],
-  },
+    entities,
+  }),
 });

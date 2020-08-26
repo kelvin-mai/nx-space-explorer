@@ -1,5 +1,3 @@
-import { Launch } from '@/graphql';
-
 export interface SpacexLaunch {
   flight_number: number;
   mission_name: string;
@@ -130,14 +128,4 @@ export interface Telemetry {
 
 export interface Timeline {
   webcast_liftoff: number;
-}
-
-export interface LaunchModel extends Omit<Launch, 'mission' | 'isBooked'> {
-  mission: MissionModel;
-}
-
-export interface MissionModel {
-  name?: string;
-  missionPatchSmall: string;
-  missionPatchLarge: string;
 }

@@ -1,20 +1,20 @@
 {
   "version": 1,
   "projects": {
-    "graphql-server": {
-      "root": "apps/graphql-server",
-      "sourceRoot": "apps/graphql-server/src",
+    "server": {
+      "root": "apps/server",
+      "sourceRoot": "apps/server/src",
       "projectType": "application",
-      "prefix": "graphql-server",
+      "prefix": "server",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/apps/graphql-server",
-            "main": "apps/graphql-server/src/main.ts",
-            "tsConfig": "apps/graphql-server/tsconfig.app.json",
-            "assets": ["apps/graphql-server/src/assets"]
+            "outputPath": "dist/apps/server",
+            "main": "apps/server/src/main.ts",
+            "tsConfig": "apps/server/tsconfig.app.json",
+            "assets": ["apps/server/src/assets"]
           },
           "configurations": {
             "production": {
@@ -23,8 +23,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/graphql-server/src/environments/environment.ts",
-                  "with": "apps/graphql-server/src/environments/environment.prod.ts"
+                  "replace": "apps/server/src/environments/environment.ts",
+                  "with": "apps/server/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -33,7 +33,7 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "graphql-server:build"
+            "buildTarget": "server:build"
           }
         },
         "lint": {
@@ -41,17 +41,71 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "apps/graphql-server/tsconfig.app.json",
-              "apps/graphql-server/tsconfig.spec.json"
+              "apps/server/tsconfig.app.json",
+              "apps/server/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/graphql-server/**/*"]
+            "exclude": ["**/node_modules/**", "!apps/server/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/graphql-server/jest.config.js",
-            "tsConfig": "apps/graphql-server/tsconfig.spec.json",
+            "jestConfig": "apps/server/jest.config.js",
+            "tsConfig": "apps/server/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "graphql": {
+      "root": "libs/graphql",
+      "sourceRoot": "libs/graphql/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/graphql/tsconfig.lib.json",
+              "libs/graphql/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/graphql/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/graphql/jest.config.js",
+            "tsConfig": "libs/graphql/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "types": {
+      "root": "libs/types",
+      "sourceRoot": "libs/types/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/types/tsconfig.lib.json",
+              "libs/types/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/types/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/types/jest.config.js",
+            "tsConfig": "libs/types/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -61,5 +115,5 @@
   "cli": {
     "defaultCollection": "@nrwl/nest"
   },
-  "defaultProject": "graphql-server"
+  "defaultProject": "server"
 }

@@ -22,7 +22,13 @@
     }
   },
   "projects": {
-    "graphql-server": {
+    "server": {
+      "tags": []
+    },
+    "graphql": {
+      "tags": []
+    },
+    "types": {
       "tags": []
     }
   }

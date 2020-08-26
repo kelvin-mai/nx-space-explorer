@@ -1,6 +1,6 @@
 import { Resolver, ResolveField, Parent } from '@nestjs/graphql';
+import { TripUpdateResponseModel } from '@space-explorer/types';
 
-import { TripUpdateResponseModel } from '../user/user.models';
 import { LaunchService } from './launch.service';
 
 @Resolver('TripUpdateResponse')

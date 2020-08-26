@@ -3,9 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
+import { UserModel, TripUpdateResponseModel } from '@space-explorer/types';
 
 import { UserEntity } from './user.entity';
-import { UserModel, TripUpdateResponseModel } from './user.models';
 
 @Injectable()
 export class UserService {
@@ -66,7 +66,7 @@ export class UserService {
           [id],
         );
       }
-      user.trips = user.trips.filter(t => t !== Number(id));
+      user.trips = user.trips.filter((t) => t !== Number(id));
       await user.save();
       return {
         success: true,

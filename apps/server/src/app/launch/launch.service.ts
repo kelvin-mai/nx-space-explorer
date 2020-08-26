@@ -1,8 +1,7 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
-
-import { LaunchModel, SpacexLaunch } from './launch.models';
+import { LaunchModel, SpacexLaunch } from '@space-explorer/types';
 
 @Injectable()
 export class LaunchService {
@@ -41,8 +40,8 @@ export class LaunchService {
 
   getLaunchByIds(ids: number[]) {
     return ids.length
-      ? forkJoin(ids.map(id => this.getLaunchById(id))).pipe(
-          mergeMap(res => of(res)),
+      ? forkJoin(ids.map((id) => this.getLaunchById(id))).pipe(
+          mergeMap((res) => of(res)),
         )
       : of([]);
   }
