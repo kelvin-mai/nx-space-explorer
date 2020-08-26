@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
 
-import { config } from './config';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { environment } from '../environments/environment';
 import { DatabaseConfig } from './database.config';
 import { LaunchModule } from './launch/launch.module';
 import { UserModule } from './user/user.module';
@@ -13,11 +14,10 @@ import { UserModule } from './user/user.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [config],
+      load: [environment],
     }),
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
-      definitions: { path: join(process.cwd(), 'src/graphql.ts') },
       context: ({ req }) => ({ headers: req.headers }),
     }),
     TypeOrmModule.forRootAsync({
@@ -27,7 +27,7 @@ import { UserModule } from './user/user.module';
     LaunchModule,
     UserModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

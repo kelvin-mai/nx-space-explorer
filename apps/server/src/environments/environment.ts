@@ -1,4 +1,5 @@
-export const config = () => ({
+export const environment = () => ({
+  production: false,
   port: Number(process.env.PORT),
   jwtSecret: process.env.JWT_SECRET,
   database: {

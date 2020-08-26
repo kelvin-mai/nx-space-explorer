@@ -9,7 +9,7 @@ import {
 } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
-import { LaunchService } from '@/launch/launch.service';
+import { LaunchService } from '../launch/launch.service';
 import { AuthGuard } from './auth.gaurd';
 import { UserService } from './user.service';
 import { UserModel } from './user.models';
@@ -19,7 +19,7 @@ import { UserEntity } from './user.entity';
 export class UserResolver {
   constructor(
     private userService: UserService,
-    private launchService: LaunchService,
+    private launchService: LaunchService
   ) {}
 
   @Query()
@@ -46,7 +46,7 @@ export class UserResolver {
   @UseGuards(AuthGuard)
   async bookTrips(
     @Args('launchIds') ids: number[],
-    @Context('user') user: UserModel,
+    @Context('user') user: UserModel
   ) {
     return this.userService.addTrips(ids, user);
   }
