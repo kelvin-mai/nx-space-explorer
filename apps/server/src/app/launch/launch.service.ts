@@ -38,7 +38,7 @@ export class LaunchService {
       .pipe(map(({ data }) => this.toLaunch(data)));
   }
 
-  getLaunchByIds(ids: number[]) {
+  getLaunchByIds(ids: number[]): Observable<LaunchModel[]> {
     return ids.length
       ? forkJoin(ids.map((id) => this.getLaunchById(id))).pipe(
           mergeMap((res) => of(res)),

@@ -40,7 +40,11 @@
     "pg": "^8.3.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
-    "typeorm": "^0.2.25"
+    "typeorm": "^0.2.25",
+    "document-register-element": "1.13.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "next": "9.5.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.17.8",
@@ -70,6 +74,19 @@
     "ts-jest": "26.1.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "typescript": "~3.9.3"
+    "typescript": "~3.9.3",
+    "cypress": "^4.1.0",
+    "@nrwl/cypress": "10.1.0",
+    "@nrwl/web": "10.1.0",
+    "@nrwl/react": "10.1.0",
+    "@types/react": "16.9.38",
+    "@types/react-dom": "16.9.8",
+    "@testing-library/react": "10.4.1",
+    "eslint-plugin-cypress": "^2.10.3",
+    "@babel/core": "7.9.6",
+    "@babel/preset-env": "7.9.6",
+    "@babel/preset-typescript": "7.9.0",
+    "@babel/preset-react": "7.9.4",
+    "babel-jest": "26.2.2"
   }
 }
