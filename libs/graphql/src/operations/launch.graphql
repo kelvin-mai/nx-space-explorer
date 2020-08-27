@@ -1,7 +1,6 @@
 fragment LaunchResult on Launch {
   id
   site
-  isBooked
   rocket {
     id
     name
@@ -11,10 +10,14 @@ fragment LaunchResult on Launch {
 
 query GetLaunches($size: PatchSize) {
   launches {
-    ...LaunchResult
-    mission {
-      name
-      missionPatch(size: $size)
+    hasMore
+    cursor
+    launches {
+      ...LaunchResult
+      mission {
+        name
+        missionPatch(size: $size)
+      }
     }
   }
 }

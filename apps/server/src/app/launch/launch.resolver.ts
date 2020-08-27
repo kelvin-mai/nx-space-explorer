@@ -7,8 +7,11 @@ export class LaunchResolver {
   constructor(private launchService: LaunchService) {}
 
   @Query()
-  launches() {
-    return this.launchService.getAllLaunches();
+  launches(
+    @Args('pageSize') pageSize?: number,
+    @Args('cursor') cursor?: string,
+  ) {
+    return this.launchService.getAllLaunches(pageSize, cursor);
   }
 
   @Query()

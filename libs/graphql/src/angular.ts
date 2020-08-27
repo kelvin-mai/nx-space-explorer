@@ -41,6 +41,13 @@ export type MissionMissionPatchArgs = {
   size?: Maybe<PatchSize>;
 };
 
+export type LaunchConnection = {
+  __typename?: 'LaunchConnection';
+  cursor: Scalars['String'];
+  hasMore: Scalars['Boolean'];
+  launches: Array<Maybe<Launch>>;
+};
+
 export enum PatchSize {
   Small = 'SMALL',
   Large = 'LARGE'
@@ -49,13 +56,19 @@ export enum PatchSize {
 export type Query = {
   __typename?: 'Query';
   launch?: Maybe<Launch>;
-  launches: Array<Maybe<Launch>>;
+  launches: LaunchConnection;
   me?: Maybe<User>;
 };
 
 
 export type QueryLaunchArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryLaunchesArgs = {
+  pageSize?: Maybe<Scalars['Int']>;
+  cursor?: Maybe<Scalars['String']>;
 };
 
 export type User = {
@@ -96,7 +109,7 @@ export type TripUpdateResponse = {
 
 export type LaunchResultFragment = (
   { __typename?: 'Launch' }
-  & Pick<Launch, 'id' | 'site' | 'isBooked'>
+  & Pick<Launch, 'id' | 'site'>
   & { rocket?: Maybe<(
     { __typename?: 'Rocket' }
     & Pick<Rocket, 'id' | 'name' | 'type'>
@@ -110,14 +123,18 @@ export type GetLaunchesQueryVariables = Exact<{
 
 export type GetLaunchesQuery = (
   { __typename?: 'Query' }
-  & { launches: Array<Maybe<(
-    { __typename?: 'Launch' }
-    & { mission?: Maybe<(
-      { __typename?: 'Mission' }
-      & Pick<Mission, 'name' | 'missionPatch'>
-    )> }
-    & LaunchResultFragment
-  )>> }
+  & { launches: (
+    { __typename?: 'LaunchConnection' }
+    & Pick<LaunchConnection, 'hasMore' | 'cursor'>
+    & { launches: Array<Maybe<(
+      { __typename?: 'Launch' }
+      & { mission?: Maybe<(
+        { __typename?: 'Mission' }
+        & Pick<Mission, 'name' | 'missionPatch'>
+      )> }
+      & LaunchResultFragment
+    )>> }
+  ) }
 );
 
 export type GetLaunchQueryVariables = Exact<{
@@ -168,7 +185,6 @@ export const LaunchResultFragmentDoc = gql`
     fragment LaunchResult on Launch {
   id
   site
-  isBooked
   rocket {
     id
     name
@@ -185,10 +201,14 @@ export const UserResultFragmentDoc = gql`
 export const GetLaunchesDocument = gql`
     query GetLaunches($size: PatchSize) {
   launches {
-    ...LaunchResult
-    mission {
-      name
-      missionPatch(size: $size)
+    hasMore
+    cursor
+    launches {
+      ...LaunchResult
+      mission {
+        name
+        missionPatch(size: $size)
+      }
     }
   }
 }

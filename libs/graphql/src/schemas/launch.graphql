@@ -17,12 +17,18 @@ type Mission {
   missionPatch(size: PatchSize): String
 }
 
+type LaunchConnection {
+  cursor: String!
+  hasMore: Boolean!
+  launches: [Launch]!
+}
+
 enum PatchSize {
   SMALL
   LARGE
 }
 
 type Query {
-  launches: [Launch]!
+  launches(pageSize: Int, cursor: String): LaunchConnection!
   launch(id: ID!): Launch
 }

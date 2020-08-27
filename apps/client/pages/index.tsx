@@ -1,11 +1,14 @@
 import React from 'react';
 
+import { useGetLaunchesQuery, PatchSize } from '@space-explorer/graphql/react';
+
 export const Index = () => {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./${fileName}.${style} file.
-   */
+  const { data } = useGetLaunchesQuery({
+    variables: {
+      size: PatchSize.Large,
+    },
+  });
+  console.log('gql result', data);
   return (
     <div>
       <style jsx>{`

@@ -17,3 +17,8 @@ export interface MissionModel {
   missionPatchSmall: string;
   missionPatchLarge: string;
 }
+
+export interface LaunchConnectionModel
+  extends Omit<ServerSchema.LaunchConnection, 'launches'> {
+  launches: LaunchModel[];
+}

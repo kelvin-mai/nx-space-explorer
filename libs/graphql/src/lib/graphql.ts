@@ -30,8 +30,14 @@ export interface Mission {
     missionPatch?: string;
 }
 
+export interface LaunchConnection {
+    cursor: string;
+    hasMore: boolean;
+    launches: Launch[];
+}
+
 export interface IQuery {
-    launches(): Launch[] | Promise<Launch[]>;
+    launches(pageSize?: number, cursor?: string): LaunchConnection | Promise<LaunchConnection>;
     launch(id: string): Launch | Promise<Launch>;
     me(): User | Promise<User>;
 }
