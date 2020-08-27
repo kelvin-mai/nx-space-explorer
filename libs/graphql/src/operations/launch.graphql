@@ -1,0 +1,30 @@
+fragment LaunchResult on Launch {
+  id
+  site
+  isBooked
+  rocket {
+    id
+    name
+    type
+  }
+}
+
+query GetLaunches($size: PatchSize) {
+  launches {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: $size)
+    }
+  }
+}
+
+query GetLaunch($id: ID!, $size: PatchSize) {
+  launch(id: $id) {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: $size)
+    }
+  }
+}

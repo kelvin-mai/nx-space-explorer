@@ -63,6 +63,16 @@
       "projectType": "library",
       "schematics": {},
       "architect": {
+        "generate": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "npx graphql-codegen --config libs/graphql/src/codegen.yml"
+              }
+            ]
+          }
+        },
         "lint": {
           "builder": "@nrwl/linter:lint",
           "options": {

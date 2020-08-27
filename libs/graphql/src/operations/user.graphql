@@ -1,0 +1,14 @@
+fragment UserResult on User {
+  id
+  email
+}
+
+query Me {
+  me {
+    ...UserResult
+  }
+}
+
+mutation Login($email: String!) {
+  login(email: $email)
+}
