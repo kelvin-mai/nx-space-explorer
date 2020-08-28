@@ -45,6 +45,7 @@
     "react-dom": "16.13.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
+    "styled-jsx": "3.3.0",
     "typeorm": "^0.2.25"
   },
   "devDependencies": {
@@ -74,6 +75,7 @@
     "@types/node": "~8.9.4",
     "@types/react": "16.9.38",
     "@types/react-dom": "16.9.8",
+    "@types/styled-jsx": "2.2.8",
     "@typescript-eslint/eslint-plugin": "2.19.2",
     "@typescript-eslint/parser": "2.19.2",
     "babel-jest": "26.2.2",
@@ -88,6 +90,6 @@
     "ts-jest": "26.1.4",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "typescript": "~3.9.3"
+    "typescript": "^4.0.2"
   }
 }

@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-  login(email: String): String
+  login(email: String!): String
   bookTrips(launchIds: [ID]!): TripUpdateResponse!
   cancelTrip(launchId: ID!): TripUpdateResponse!
 }

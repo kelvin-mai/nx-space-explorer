@@ -16,7 +16,7 @@ export interface Launch {
     site?: string;
     mission?: Mission;
     rocket?: Rocket;
-    isBooked: boolean;
+    isBooked?: boolean;
 }
 
 export interface Rocket {
@@ -49,7 +49,7 @@ export interface User {
 }
 
 export interface IMutation {
-    login(email?: string): string | Promise<string>;
+    login(email: string): string | Promise<string>;
     bookTrips(launchIds: string[]): TripUpdateResponse | Promise<TripUpdateResponse>;
     cancelTrip(launchId: string): TripUpdateResponse | Promise<TripUpdateResponse>;
 }

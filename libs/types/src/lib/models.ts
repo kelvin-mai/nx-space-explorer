@@ -1,6 +1,6 @@
 import * as ServerSchema from '@space-explorer/graphql';
 
-export interface UserModel extends Omit<ServerSchema.User, 'trips'> {}
+export type UserModel = Omit<ServerSchema.User, 'trips'> | null;
 
 export interface TripUpdateResponseModel
   extends Omit<ServerSchema.TripUpdateResponse, 'launches'> {

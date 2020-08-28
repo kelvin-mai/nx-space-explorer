@@ -25,12 +25,15 @@ export class UserResolver {
   @Query()
   @UseGuards(AuthGuard)
   me(@Context('user') user: UserModel) {
+    if (!user) {
+      return null;
+    }
     return this.userService.getUserByEmail(user.email);
   }
 
   @ResolveField()
   trips(@Parent() { trips }: UserEntity) {
-    return this.launchService.getLaunchByIds(trips);
+    return this.launchService.getLaunchByIds(trips || []);
   }
 
   @Mutation()
@@ -45,15 +48,21 @@ export class UserResolver {
   @Mutation()
   @UseGuards(AuthGuard)
   async bookTrips(
-    @Args('launchIds') ids: number[],
+    @Args('launchIds') ids: string[],
     @Context('user') user: UserModel,
   ) {
-    return this.userService.addTrips(ids, user);
+    if (!user) {
+      return null;
+    }
+    return this.userService.addTrips(ids.map(Number), user.email);
   }
 
   @Mutation()
   @UseGuards(AuthGuard)
-  cancelTrip(@Args('launchId') id: number, @Context('user') user: UserModel) {
-    return this.userService.removeTrip(id, user);
+  cancelTrip(@Args('launchId') id: string, @Context('user') user: UserModel) {
+    if (!user) {
+      return null;
+    }
+    return this.userService.removeTrip(Number(id), user.email);
   }
 }

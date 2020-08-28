@@ -20,7 +20,6 @@ export type Launch = {
   site?: Maybe<Scalars['String']>;
   mission?: Maybe<Mission>;
   rocket?: Maybe<Rocket>;
-  isBooked: Scalars['Boolean'];
 };
 
 export type Rocket = {

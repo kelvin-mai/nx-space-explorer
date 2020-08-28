@@ -36,13 +36,19 @@ export class UserService {
     return { success: false, message, launches };
   }
 
+  async hasTrip(id: number, email: string) {
+    const user = await this.getUserByEmail(email);
+    return user.trips.includes(id);
+  }
+
   async addTrips(
     ids: number[],
-    { email }: UserModel,
+    email: string,
   ): Promise<TripUpdateResponseModel> {
     try {
       const user = await this.getUserByEmail(email);
-      user.trips = Array.from(new Set(user.trips.concat(ids)));
+      const totalTrips = user.trips ? user.trips.concat(ids) : ids;
+      user.trips = Array.from(new Set(totalTrips));
       await user.save();
       return {
         success: true,
@@ -56,7 +62,7 @@ export class UserService {
 
   async removeTrip(
     id: number,
-    { email }: UserModel,
+    email: string,
   ): Promise<TripUpdateResponseModel> {
     try {
       const user = await this.getUserByEmail(email);
