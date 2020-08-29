@@ -1,33 +1,37 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useGetLaunchesQuery, PatchSize } from '@space-explorer/graphql/react';
 
 import { Layout } from '../components/layout';
 import { LaunchCard } from '../components/launch';
 import { Loader } from '../components/common';
-
-const styles = (
-  <style jsx>{`
-    * {
-      margin: 0;
-      padding: 0;
-    }
-  `}</style>
-);
+import { useInfiniteTrigger } from '../context/hooks';
 
 export const Index = () => {
-  const { data, loading } = useGetLaunchesQuery({
+  const { data, loading, fetchMore } = useGetLaunchesQuery({
     variables: {
       size: PatchSize.Large,
     },
+    notifyOnNetworkStatusChange: true,
+  });
+  const intersectionRef = useRef(null);
+  useInfiniteTrigger(intersectionRef, () => {
+    if (data?.launches.cursor && data?.launches.hasMore && fetchMore) {
+      fetchMore({
+        variables: { cursor: data.launches.cursor },
+      });
+    }
   });
   return (
     <Layout title="Home Page">
-      {styles}
-      {loading ? (
-        <Loader />
-      ) : (
-        data.launches.launches?.map((l) => <LaunchCard {...l} />)
-      )}
+      <style jsx>{`
+        .load-more {
+          height: 1rem;
+        }
+      `}</style>
+      {Boolean(data?.launches) &&
+        data.launches.launches.map((l) => <LaunchCard {...l} />)}
+      {loading && <Loader />}
+      <div className="load-more" ref={intersectionRef} />
     </Layout>
   );
 };

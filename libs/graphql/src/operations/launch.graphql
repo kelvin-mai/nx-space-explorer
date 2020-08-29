@@ -8,8 +8,8 @@ fragment LaunchResult on Launch {
   }
 }
 
-query GetLaunches($size: PatchSize) {
-  launches {
+query GetLaunches($size: PatchSize, $cursor: String) {
+  launches(cursor: $cursor) {
     hasMore
     cursor
     launches {

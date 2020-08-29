@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from '../../public/assets/logo.svg';
 
 export interface LoaderProps {}
 
-export const Loader: React.FC<LoaderProps> = () => {
+export const Loader = () => {
   return (
     <>
       <style jsx global>{`

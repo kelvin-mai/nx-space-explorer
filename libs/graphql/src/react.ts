@@ -17,6 +17,7 @@ export type Launch = {
   site?: Maybe<Scalars['String']>;
   mission?: Maybe<Mission>;
   rocket?: Maybe<Rocket>;
+  isBooked?: Maybe<Scalars['Boolean']>;
 };
 
 export type Rocket = {
@@ -83,7 +84,7 @@ export type Mutation = {
 
 
 export type MutationLoginArgs = {
-  email?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
 };
 
 
@@ -114,6 +115,7 @@ export type LaunchResultFragment = (
 
 export type GetLaunchesQueryVariables = Exact<{
   size?: Maybe<PatchSize>;
+  cursor?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -195,8 +197,8 @@ export const UserResultFragmentDoc = gql`
 }
     `;
 export const GetLaunchesDocument = gql`
-    query GetLaunches($size: PatchSize) {
-  launches {
+    query GetLaunches($size: PatchSize, $cursor: String) {
+  launches(cursor: $cursor) {
     hasMore
     cursor
     launches {
@@ -223,6 +225,7 @@ export const GetLaunchesDocument = gql`
  * const { data, loading, error } = useGetLaunchesQuery({
  *   variables: {
  *      size: // value for 'size'
+ *      cursor: // value for 'cursor'
  *   },
  * });
  */
