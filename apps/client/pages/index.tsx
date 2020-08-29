@@ -29,7 +29,7 @@ export const Index = () => {
         }
       `}</style>
       {Boolean(data?.launches) &&
-        data.launches.launches.map((l) => <LaunchCard {...l} />)}
+        data.launches.launches.map((l) => <LaunchCard key={l.id} {...l} />)}
       {loading && <Loader />}
       <div className="load-more" ref={intersectionRef} />
     </Layout>

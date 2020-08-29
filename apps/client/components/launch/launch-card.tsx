@@ -12,7 +12,7 @@ export const LaunchCard: React.FC<LaunchCardProps> = ({
   rocket,
 }) => {
   return (
-    <Link className="card" href={`/launch/${id}`}>
+    <Link href={`/launch/${id}`}>
       <a className="card" style={{ backgroundImage: getBgImg(id) }}>
         <style jsx>{`
           .card {

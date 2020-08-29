@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Launch } from '@space-explorer/graphql/react';
 
 import { getBgImg } from '../../utils/images';
