@@ -28,6 +28,7 @@
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
+    "@apollo/react-ssr": "^4.0.0",
     "@nestjs/common": "^7.0.0",
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.0.0",
