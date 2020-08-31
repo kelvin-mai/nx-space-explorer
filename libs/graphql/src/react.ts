@@ -40,7 +40,7 @@ export type MissionMissionPatchArgs = {
 
 export type LaunchConnection = {
   __typename?: 'LaunchConnection';
-  cursor: Scalars['String'];
+  cursor?: Maybe<Scalars['String']>;
   hasMore: Scalars['Boolean'];
   launches: Array<Maybe<Launch>>;
 };
@@ -158,13 +158,17 @@ export type UserResultFragment = (
   & Pick<User, 'id' | 'email'>
 );
 
-export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyTripsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = (
+export type MyTripsQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
+    & { trips?: Maybe<Array<Maybe<(
+      { __typename?: 'Launch' }
+      & LaunchResultFragment
+    )>>> }
     & UserResultFragment
   )> }
 );
@@ -276,38 +280,42 @@ export function useGetLaunchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type GetLaunchQueryHookResult = ReturnType<typeof useGetLaunchQuery>;
 export type GetLaunchLazyQueryHookResult = ReturnType<typeof useGetLaunchLazyQuery>;
 export type GetLaunchQueryResult = Apollo.QueryResult<GetLaunchQuery, GetLaunchQueryVariables>;
-export const MeDocument = gql`
-    query Me {
+export const MyTripsDocument = gql`
+    query MyTrips {
   me {
     ...UserResult
+    trips {
+      ...LaunchResult
+    }
   }
 }
-    ${UserResultFragmentDoc}`;
+    ${UserResultFragmentDoc}
+${LaunchResultFragmentDoc}`;
 
 /**
- * __useMeQuery__
+ * __useMyTripsQuery__
  *
- * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
- * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useMyTripsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyTripsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMeQuery({
+ * const { data, loading, error } = useMyTripsQuery({
  *   variables: {
  *   },
  * });
  */
-export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
-        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+export function useMyTripsQuery(baseOptions?: Apollo.QueryHookOptions<MyTripsQuery, MyTripsQueryVariables>) {
+        return Apollo.useQuery<MyTripsQuery, MyTripsQueryVariables>(MyTripsDocument, baseOptions);
       }
-export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
-          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+export function useMyTripsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyTripsQuery, MyTripsQueryVariables>) {
+          return Apollo.useLazyQuery<MyTripsQuery, MyTripsQueryVariables>(MyTripsDocument, baseOptions);
         }
-export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
-export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
-export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export type MyTripsQueryHookResult = ReturnType<typeof useMyTripsQuery>;
+export type MyTripsLazyQueryHookResult = ReturnType<typeof useMyTripsLazyQuery>;
+export type MyTripsQueryResult = Apollo.QueryResult<MyTripsQuery, MyTripsQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!) {
   login(email: $email)

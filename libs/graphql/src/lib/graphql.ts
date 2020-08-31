@@ -31,7 +31,7 @@ export interface Mission {
 }
 
 export interface LaunchConnection {
-    cursor: string;
+    cursor?: string;
     hasMore: boolean;
     launches: Launch[];
 }

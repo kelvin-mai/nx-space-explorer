@@ -18,7 +18,7 @@ type Mission {
 }
 
 type LaunchConnection {
-  cursor: String!
+  cursor: String
   hasMore: Boolean!
   launches: [Launch]!
 }

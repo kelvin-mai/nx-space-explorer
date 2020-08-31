@@ -15,7 +15,12 @@ export const Index = () => {
   });
   const intersectionRef = useRef(null);
   useInfiniteTrigger(intersectionRef, () => {
-    if (data?.launches.cursor && data?.launches.hasMore && fetchMore) {
+    if (
+      data?.launches.cursor &&
+      data?.launches.hasMore &&
+      !loading &&
+      fetchMore
+    ) {
       fetchMore({
         variables: { cursor: data.launches.cursor },
       });

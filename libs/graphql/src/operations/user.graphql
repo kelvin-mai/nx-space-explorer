@@ -3,9 +3,12 @@ fragment UserResult on User {
   email
 }
 
-query Me {
+query MyTrips {
   me {
     ...UserResult
+    trips {
+      ...LaunchResult
+    }
   }
 }
 

@@ -43,7 +43,7 @@ export type MissionMissionPatchArgs = {
 
 export type LaunchConnection = {
   __typename?: 'LaunchConnection';
-  cursor: Scalars['String'];
+  cursor?: Maybe<Scalars['String']>;
   hasMore: Scalars['Boolean'];
   launches: Array<Maybe<Launch>>;
 };
@@ -161,13 +161,17 @@ export type UserResultFragment = (
   & Pick<User, 'id' | 'email'>
 );
 
-export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyTripsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = (
+export type MyTripsQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'User' }
+    & { trips?: Maybe<Array<Maybe<(
+      { __typename?: 'Launch' }
+      & LaunchResultFragment
+    )>>> }
     & UserResultFragment
   )> }
 );
@@ -247,19 +251,23 @@ export const GetLaunchDocument = gql`
       super(apollo);
     }
   }
-export const MeDocument = gql`
-    query Me {
+export const MyTripsDocument = gql`
+    query MyTrips {
   me {
     ...UserResult
+    trips {
+      ...LaunchResult
+    }
   }
 }
-    ${UserResultFragmentDoc}`;
+    ${UserResultFragmentDoc}
+${LaunchResultFragmentDoc}`;
 
   @Injectable({
     providedIn: 'root'
   })
-  export class MeGQL extends Apollo.Query<MeQuery, MeQueryVariables> {
-    document = MeDocument;
+  export class MyTripsGQL extends Apollo.Query<MyTripsQuery, MyTripsQueryVariables> {
+    document = MyTripsDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

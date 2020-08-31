@@ -35,10 +35,10 @@ export class LaunchService {
     pageSize: number,
     cursor?: string,
   ): LaunchConnectionModel {
-    const curserIndex = cursor ? results.findIndex((r) => r.id === cursor) : 0;
-    const launches = results.slice(curserIndex, curserIndex + pageSize);
-    const nextCursor = launches[launches.length - 1].id;
-    const hasMore = nextCursor !== results[results.length - 1].id;
+    const cursorIndex = cursor ? results.findIndex((r) => r.id === cursor) : 0;
+    const launches = results.slice(cursorIndex, cursorIndex + pageSize);
+    const nextCursor = results[cursorIndex + pageSize]?.id;
+    const hasMore = Boolean(results[nextCursor]);
     return {
       cursor: nextCursor,
       hasMore,
