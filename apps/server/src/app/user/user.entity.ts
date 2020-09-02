@@ -10,4 +10,7 @@ export class UserEntity extends BaseEntity {
 
   @Column('int', { array: true, nullable: true })
   trips: number[];
+
+  @Column('boolean', { default: false })
+  admin: boolean;
 }

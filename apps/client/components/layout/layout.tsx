@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 
 import { Header } from './header';
+import { Footer } from './footer';
 
 export interface LayoutProps {
   title: string;
@@ -27,6 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, title }) => {
       `}</style>
       <Header />
       <main className="container">{children}</main>
+      <Footer />
     </>
   );
 };

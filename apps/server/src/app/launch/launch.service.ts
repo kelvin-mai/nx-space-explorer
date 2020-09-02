@@ -9,7 +9,7 @@ import {
 
 @Injectable()
 export class LaunchService {
-  apiUrl = 'https://api.spacexdata.com/v3';
+  private apiUrl = 'https://api.spacexdata.com/v3';
 
   constructor(private http: HttpService) {}
 
