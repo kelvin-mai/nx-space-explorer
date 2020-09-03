@@ -68,11 +68,11 @@
     letter-spacing: 1.5;
     text-transform: uppercase;
     text-align: center;
-  }
-  a svg {
-    display: block;
-    width: 60px;
-    margin: 0 auto 0.5rem;
-    fill: var(--text-secondary);
+    svg {
+      display: block;
+      width: 60px;
+      margin: 0 auto 0.5rem;
+      fill: var(--text-secondary);
+    }
   }
 }

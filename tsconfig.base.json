@@ -19,7 +19,8 @@
       "@space-explorer/graphql": ["libs/graphql/src/index.ts"],
       "@space-explorer/graphql/react": ["libs/graphql/src/react.ts"],
       "@space-explorer/graphql/angular": ["libs/graphql/src/angular.ts"],
-      "@space-explorer/types": ["libs/types/src/index.ts"]
+      "@space-explorer/types": ["libs/types/src/index.ts"],
+      "@space-explorer/next-lib": ["libs/next-lib/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

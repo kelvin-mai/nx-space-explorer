@@ -37,6 +37,9 @@
     "client-e2e": {
       "tags": [],
       "implicitDependencies": ["client"]
+    },
+    "next-lib": {
+      "tags": []
     }
   }
 }

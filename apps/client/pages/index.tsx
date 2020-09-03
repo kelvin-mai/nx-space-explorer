@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { useGetLaunchesQuery, PatchSize } from '@space-explorer/graphql/react';
+import { useInfiniteTrigger } from '@space-explorer/next-lib';
 
 import scss from './pages.module.scss';
 import { Layout } from '../components/layout';
 import { LaunchCard } from '../components/launch';
 import { Loader } from '../components/common';
-import { useInfiniteTrigger } from '../context/hooks';
 
 export const Index = () => {
   const { data, loading, fetchMore } = useGetLaunchesQuery({

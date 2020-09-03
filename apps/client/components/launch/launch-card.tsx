@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { Launch } from '@space-explorer/graphql/react';
+import { getBgImg } from '@space-explorer/next-lib';
 
 import scss from './launch.module.scss';
-import { getBgImg } from '../../utils/images';
 
 export interface LaunchCardProps extends Launch {}
 
