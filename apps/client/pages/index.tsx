@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useGetLaunchesQuery, PatchSize } from '@space-explorer/graphql/react';
 
+import scss from './pages.module.scss';
 import { Layout } from '../components/layout';
 import { LaunchCard } from '../components/launch';
 import { Loader } from '../components/common';
@@ -28,15 +29,10 @@ export const Index = () => {
   });
   return (
     <Layout title="Home Page">
-      <style jsx>{`
-        .load-more {
-          height: 1rem;
-        }
-      `}</style>
       {Boolean(data?.launches) &&
         data.launches.launches.map((l) => <LaunchCard key={l.id} {...l} />)}
       {loading && <Loader />}
-      <div className="load-more" ref={intersectionRef} />
+      <div className={scss['load-more']} ref={intersectionRef} />
     </Layout>
   );
 };

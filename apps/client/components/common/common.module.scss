@@ -1,0 +1,15 @@
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loading {
+  height: 8rem;
+  display: block;
+  margin: auto;
+  fill: #d8d9e0;
+}
+.loading path {
+  transform-origin: center;
+  animation: spin 1s linear infinite;
+}

@@ -27,6 +27,7 @@ body {
   font-family: Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: var(--background);
   color: var(--text);
+  min-height: 100vh;
 }
 
 h1,

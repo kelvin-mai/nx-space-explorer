@@ -48,7 +48,6 @@
     "react-use": "^15.3.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.5",
-    "styled-jsx": "3.3.0",
     "typeorm": "^0.2.25"
   },
   "devDependencies": {
