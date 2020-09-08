@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Button } from './button';
+
 export interface EmailFormProps {
   onSubmit(value: string): Promise<void>;
 }
@@ -22,7 +24,7 @@ export const EmailForm: React.FC<EmailFormProps> = ({ onSubmit }) => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
     </form>
   );
 };

@@ -153,6 +153,27 @@ export type GetLaunchQuery = (
   )> }
 );
 
+export type GetLaunchAndMeQueryVariables = Exact<{
+  id: Scalars['ID'];
+  size?: Maybe<PatchSize>;
+}>;
+
+
+export type GetLaunchAndMeQuery = (
+  { __typename?: 'Query' }
+  & { launch?: Maybe<(
+    { __typename?: 'Launch' }
+    & { mission?: Maybe<(
+      { __typename?: 'Mission' }
+      & Pick<Mission, 'name' | 'missionPatch'>
+    )> }
+    & LaunchResultFragment
+  )>, me?: Maybe<(
+    { __typename?: 'User' }
+    & UserResultFragment
+  )> }
+);
+
 export type UserResultFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'email'>
@@ -280,6 +301,48 @@ export function useGetLaunchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type GetLaunchQueryHookResult = ReturnType<typeof useGetLaunchQuery>;
 export type GetLaunchLazyQueryHookResult = ReturnType<typeof useGetLaunchLazyQuery>;
 export type GetLaunchQueryResult = Apollo.QueryResult<GetLaunchQuery, GetLaunchQueryVariables>;
+export const GetLaunchAndMeDocument = gql`
+    query GetLaunchAndMe($id: ID!, $size: PatchSize) {
+  launch(id: $id) {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: $size)
+    }
+  }
+  me {
+    ...UserResult
+  }
+}
+    ${LaunchResultFragmentDoc}
+${UserResultFragmentDoc}`;
+
+/**
+ * __useGetLaunchAndMeQuery__
+ *
+ * To run a query within a React component, call `useGetLaunchAndMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLaunchAndMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLaunchAndMeQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      size: // value for 'size'
+ *   },
+ * });
+ */
+export function useGetLaunchAndMeQuery(baseOptions?: Apollo.QueryHookOptions<GetLaunchAndMeQuery, GetLaunchAndMeQueryVariables>) {
+        return Apollo.useQuery<GetLaunchAndMeQuery, GetLaunchAndMeQueryVariables>(GetLaunchAndMeDocument, baseOptions);
+      }
+export function useGetLaunchAndMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLaunchAndMeQuery, GetLaunchAndMeQueryVariables>) {
+          return Apollo.useLazyQuery<GetLaunchAndMeQuery, GetLaunchAndMeQueryVariables>(GetLaunchAndMeDocument, baseOptions);
+        }
+export type GetLaunchAndMeQueryHookResult = ReturnType<typeof useGetLaunchAndMeQuery>;
+export type GetLaunchAndMeLazyQueryHookResult = ReturnType<typeof useGetLaunchAndMeLazyQuery>;
+export type GetLaunchAndMeQueryResult = Apollo.QueryResult<GetLaunchAndMeQuery, GetLaunchAndMeQueryVariables>;
 export const MyTripsDocument = gql`
     query MyTrips {
   me {

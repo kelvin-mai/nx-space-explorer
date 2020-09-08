@@ -31,3 +31,16 @@ query GetLaunch($id: ID!, $size: PatchSize) {
     }
   }
 }
+
+query GetLaunchAndMe($id: ID!, $size: PatchSize) {
+  launch(id: $id) {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: $size)
+    }
+  }
+  me {
+    ...UserResult
+  }
+}

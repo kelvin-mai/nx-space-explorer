@@ -10,15 +10,11 @@ export const LaunchDetails: React.FC<LaunchDetailsProps> = ({
   id,
   rocket,
   site,
-}) => {
-  return (
-    <>
-      <div className={scss.card} style={{ backgroundImage: getBgImg(id) }}>
-        <h3>
-          {rocket.name} ({rocket.type})
-        </h3>
-        <h5>{site}</h5>
-      </div>
-    </>
-  );
-};
+}) => (
+  <div className={scss.card} style={{ backgroundImage: getBgImg(id) }}>
+    <h3>
+      {rocket.name} ({rocket.type})
+    </h3>
+    <h5>{site}</h5>
+  </div>
+);

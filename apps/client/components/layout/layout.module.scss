@@ -20,6 +20,12 @@
   transform: translateX(-50%);
 }
 
+.user-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4.5rem;
+}
 .img {
   height: 135px;
   margin-right: 2.5rem;

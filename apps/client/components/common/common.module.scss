@@ -13,3 +13,26 @@
   transform-origin: center;
   animation: spin 1s linear infinite;
 }
+
+.button {
+  display: block;
+  min-width: 200px;
+  height: 50px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  border: none;
+  border-radius: 25px;
+  font-family: inherit;
+  font-size: 700;
+  color: white;
+  text-transform: uppercase;
+  background-color: var(--accent);
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    background-color: lighten(0.1, var(--accent));
+  }
+  &:active {
+    background-color: lighten(0.2, var(--accent));
+  }
+}

@@ -5,12 +5,6 @@ import { ReactComponent as Logo } from '../../public/assets/logo.svg';
 
 export interface LoaderProps {}
 
-export const Loader = () => {
-  return (
-    <>
-      <Logo className={scss.loading} />
-    </>
-  );
-};
+export const Loader = () => <Logo className={scss.loading} />;
 
 export default Loader;

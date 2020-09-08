@@ -156,6 +156,27 @@ export type GetLaunchQuery = (
   )> }
 );
 
+export type GetLaunchAndMeQueryVariables = Exact<{
+  id: Scalars['ID'];
+  size?: Maybe<PatchSize>;
+}>;
+
+
+export type GetLaunchAndMeQuery = (
+  { __typename?: 'Query' }
+  & { launch?: Maybe<(
+    { __typename?: 'Launch' }
+    & { mission?: Maybe<(
+      { __typename?: 'Mission' }
+      & Pick<Mission, 'name' | 'missionPatch'>
+    )> }
+    & LaunchResultFragment
+  )>, me?: Maybe<(
+    { __typename?: 'User' }
+    & UserResultFragment
+  )> }
+);
+
 export type UserResultFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'email'>
@@ -246,6 +267,32 @@ export const GetLaunchDocument = gql`
   })
   export class GetLaunchGQL extends Apollo.Query<GetLaunchQuery, GetLaunchQueryVariables> {
     document = GetLaunchDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const GetLaunchAndMeDocument = gql`
+    query GetLaunchAndMe($id: ID!, $size: PatchSize) {
+  launch(id: $id) {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: $size)
+    }
+  }
+  me {
+    ...UserResult
+  }
+}
+    ${LaunchResultFragmentDoc}
+${UserResultFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetLaunchAndMeGQL extends Apollo.Query<GetLaunchAndMeQuery, GetLaunchAndMeQueryVariables> {
+    document = GetLaunchAndMeDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
