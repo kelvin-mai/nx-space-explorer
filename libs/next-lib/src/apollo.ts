@@ -8,6 +8,7 @@ import {
   HttpLink,
   concat,
 } from '@apollo/react-hooks';
+import { useMemo } from 'react';
 import { LaunchConnection } from '@space-explorer/graphql/react';
 import cookies from 'js-cookie';
 
@@ -56,9 +57,20 @@ const authLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-export const createClient = (initialState?: NormalizedCacheObject) =>
-  new ApolloClient({
-    link: concat(authLink, httpLink),
-    ssrMode: !process.browser,
-    cache: new InMemoryCache(cacheOptions).restore(initialState || {}),
-  });
+let globalApollo = null;
+
+export const createClient = (initialState?: NormalizedCacheObject) => {
+  if (!globalApollo) {
+    globalApollo = new ApolloClient({
+      link: concat(authLink, httpLink),
+      ssrMode: !process.browser,
+      cache: new InMemoryCache(cacheOptions).restore(initialState || {}),
+    });
+  }
+  return globalApollo;
+};
+
+export const useApolloStore = (initialState?: NormalizedCacheObject) => {
+  const store = useMemo(() => createClient(initialState), [initialState]);
+  return store;
+};

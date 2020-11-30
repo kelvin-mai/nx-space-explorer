@@ -1,16 +1,13 @@
 import React from 'react';
 import { AppProps } from 'next/app';
-import { ApolloProvider, NormalizedCacheObject } from '@apollo/react-hooks';
-import withApollo, { WithApolloProps } from 'next-with-apollo';
-import { createClient } from '@space-explorer/next-lib';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { useApolloStore } from '@space-explorer/next-lib';
 
 import './styles.css';
 
-const CustomApp = ({
-  Component,
-  pageProps,
-  apollo,
-}: AppProps & WithApolloProps<NormalizedCacheObject>) => {
+const CustomApp = ({ Component, pageProps }: AppProps) => {
+  const apollo = useApolloStore(pageProps.initialApolloState);
+
   return (
     <ApolloProvider client={apollo}>
       <Component {...pageProps} />
@@ -18,6 +15,4 @@ const CustomApp = ({
   );
 };
 
-export default withApollo(({ initialState }) => createClient(initialState))(
-  CustomApp,
-);
+export default CustomApp;
