@@ -1,6 +1,10 @@
 import React, { useRef } from 'react';
-import { useGetLaunchesQuery, PatchSize } from '@space-explorer/graphql/react';
-import { useInfiniteTrigger } from '@space-explorer/next-lib';
+import {
+  useGetLaunchesQuery,
+  PatchSize,
+  GetLaunchesDocument,
+} from '@space-explorer/graphql/react';
+import { useInfiniteTrigger, createClient } from '@space-explorer/next-lib';
 
 import scss from './pages.module.scss';
 import { Layout } from '../components/layout';
@@ -35,6 +39,21 @@ export const Index = () => {
       <div className={scss['load-more']} ref={intersectionRef} />
     </Layout>
   );
+};
+
+export const getStaticProps = async () => {
+  const apollo = createClient();
+  await apollo.query({
+    query: GetLaunchesDocument,
+    variables: {
+      size: PatchSize.Large,
+    },
+  });
+  return {
+    props: {
+      initialApolloState: apollo.cache.extract(),
+    },
+  };
 };
 
 export default Index;

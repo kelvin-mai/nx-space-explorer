@@ -10,6 +10,7 @@ import {
 } from '@apollo/react-hooks';
 import { useMemo } from 'react';
 import { LaunchConnection } from '@space-explorer/graphql/react';
+import fetch from 'cross-fetch';
 import cookies from 'js-cookie';
 
 const getToken = () => {
@@ -46,6 +47,7 @@ const cacheOptions: InMemoryCacheConfig = {
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:3333/graphql',
+  fetch: fetch,
 });
 
 const authLink = new ApolloLink((operation, forward) => {
@@ -59,7 +61,9 @@ const authLink = new ApolloLink((operation, forward) => {
 
 let globalApollo = null;
 
-export const createClient = (initialState?: NormalizedCacheObject) => {
+export const createClient = (
+  initialState?: NormalizedCacheObject,
+): ApolloClient<NormalizedCacheObject> => {
   if (!globalApollo) {
     globalApollo = new ApolloClient({
       link: concat(authLink, httpLink),

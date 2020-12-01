@@ -36,6 +36,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/typeorm": "^7.1.1",
     "apollo-server-express": "^2.16.1",
+    "cross-fetch": "^3.0.6",
     "document-register-element": "1.14.10",
     "graphql": "^15.3.0",
     "graphql-tools": "^7.0.2",
