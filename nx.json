@@ -25,6 +25,9 @@
   "projects": {
     "server": {
       "tags": []
+    },
+    "graphql": {
+      "tags": []
     }
   }
 }
