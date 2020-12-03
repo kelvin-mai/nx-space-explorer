@@ -54,3 +54,7 @@ h5 {
   text-transform: uppercase;
   letter-spacing: 4;
 }
+
+main {
+  min-height: 100vh;
+}
