@@ -28,6 +28,9 @@
     },
     "graphql": {
       "tags": []
+    },
+    "types": {
+      "tags": []
     }
   }
 }

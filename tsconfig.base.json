@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@space-explorer/graphql": ["libs/graphql/src/index.ts"]
+      "@space-explorer/graphql": ["libs/graphql/src/index.ts"],
+      "@space-explorer/types": ["libs/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

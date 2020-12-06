@@ -1,3 +1,7 @@
 module.exports = {
-  projects: ['<rootDir>/apps/server', '<rootDir>/libs/graphql'],
+  projects: [
+    '<rootDir>/apps/server',
+    '<rootDir>/libs/graphql',
+    '<rootDir>/libs/types',
+  ],
 };

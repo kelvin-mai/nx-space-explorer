@@ -1,0 +1,21 @@
+type User {
+  id: ID!
+  email: String!
+  trips: [Launch]
+}
+
+type Query {
+  me: User
+}
+
+type Mutation {
+  login(email: String!): String
+  bookTrips(launchIds: [ID]!): TripUpdateResponse!
+  cancelTrip(launchId: ID): TripUpdateResponse!
+}
+
+type TripUpdateResponse {
+  success: Boolean!
+  message: String
+  launches: [Launch]
+}
