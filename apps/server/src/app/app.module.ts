@@ -21,6 +21,7 @@ const lib = join(process.cwd(), LIB_PATH);
       load: [environment],
     }),
     GraphQLModule.forRoot({
+      fieldResolverEnhancers: ['guards'],
       typePaths: [join(lib, 'schemas/**/*.graphql')],
       definitions: {
         path: join(lib, 'lib/graphql.ts'),
