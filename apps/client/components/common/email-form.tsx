@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import scss from './common.module.scss';
 import { Button } from './button';
 
 export interface EmailFormProps {
@@ -13,7 +14,7 @@ export const EmailForm: React.FC<EmailFormProps> = ({ onSubmit }) => {
     onSubmit(email);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={scss['email-form']} onSubmit={handleSubmit}>
       <label htmlFor="login">Login</label>
       <input
         required

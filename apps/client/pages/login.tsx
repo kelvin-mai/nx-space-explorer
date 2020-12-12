@@ -16,16 +16,19 @@ export const Login: NextPage<LoginProps> = () => {
   const [login, { loading }] = useLoginMutation({
     notifyOnNetworkStatusChange: true,
   });
-  const { refetch } = useMyTripsQuery();
+  const { data, refetch } = useMyTripsQuery();
   const router = useRouter();
   const handleSubmit = async (value: string) => {
     const result = await login({ variables: { email: value } });
     if (!result.errors) {
       cookie.set('token', result.data.login);
       await refetch();
-      router.push('/profile');
     }
   };
+
+  if (data?.me) {
+    router.push('/profile');
+  }
 
   return (
     <Layout title="Login">

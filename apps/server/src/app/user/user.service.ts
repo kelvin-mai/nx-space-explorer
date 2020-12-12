@@ -17,7 +17,7 @@ export class UserService {
 
   createToken({ id, email }: UserEntity) {
     const user: UserModel = { id, email };
-    const secret = this.configService.get('JWT_SECRET');
+    const secret = this.configService.get('jwtSecret');
     return jwt.sign(user, secret);
   }
 

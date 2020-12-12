@@ -1,10 +1,4 @@
-import {
-  Injectable,
-  CanActivate,
-  ExecutionContext,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import * as jwt from 'jsonwebtoken';
@@ -24,15 +18,13 @@ export class AuthGuard implements CanActivate {
 
   validateToken(auth: string) {
     if (auth.split(' ')[0] !== 'Bearer') {
-      // throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
       return null;
     }
     const token = auth.split(' ')[1];
     try {
-      const secret = this.configService.get('JWT_SECRET');
+      const secret = this.configService.get('jwtSecret');
       return jwt.verify(token, secret);
     } catch (err) {
-      // throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
       return null;
     }
   }
