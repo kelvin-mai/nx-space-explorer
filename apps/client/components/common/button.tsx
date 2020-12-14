@@ -1,4 +1,3 @@
-import React from 'react';
 import scss from './common.module.scss';
 
 type ButtonProps = React.DetailedHTMLProps<

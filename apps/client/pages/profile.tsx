@@ -1,10 +1,9 @@
-import React from 'react';
 import { useRouter } from 'next/router';
 import { useMyTripsQuery } from '@space-explorer/graphql/react';
 
-import { Layout, UserHeader } from '../components/layout';
+import { Layout } from '../components/layout';
 import { Loader } from '../components/common';
-import { LaunchCard } from '../components/launch';
+import { UserList } from '../components/user/user-list';
 
 export const Profile = () => {
   const { data, loading } = useMyTripsQuery();
@@ -15,11 +14,11 @@ export const Profile = () => {
   return (
     <Layout title="My trips">
       {!loading && data?.me ? (
-        <>
-          <UserHeader email={data.me?.email}>My Trips</UserHeader>
-          {Boolean(data?.me.trips) &&
-            data.me.trips.map((l) => <LaunchCard key={l.id} {...l} />)}
-        </>
+        <UserList
+          title="My trips"
+          email={data.me.email}
+          trips={data.me.trips}
+        />
       ) : (
         <Loader />
       )}

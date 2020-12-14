@@ -3,15 +3,43 @@ fragment UserResult on User {
   email
 }
 
+fragment TripUpdateResult on TripUpdateResponse {
+  success
+  message
+  launches {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: LARGE)
+    }
+  }
+}
+
 query MyTrips {
   me {
     ...UserResult
     trips {
       ...LaunchResult
+      mission {
+        name
+        missionPatch(size: LARGE)
+      }
     }
   }
 }
 
 mutation Login($email: String!) {
   login(email: $email)
+}
+
+mutation BookTrips($ids: [ID]!) {
+  bookTrips(launchIds: $ids) {
+    ...TripUpdateResult
+  }
+}
+
+mutation CancelTrip($id: ID!) {
+  cancelTrip(launchId: $id) {
+    ...TripUpdateResult
+  }
 }

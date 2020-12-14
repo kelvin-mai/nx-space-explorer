@@ -1,5 +1,3 @@
-import React from 'react';
-
 import scss from './layout.module.scss';
 
 export interface UserHeaderProps {

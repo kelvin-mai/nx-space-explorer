@@ -19,6 +19,7 @@
   min-width: 200px;
   height: 50px;
   margin: 0 auto;
+  margin-top: 1rem;
   padding: 0 2rem;
   border: none;
   border-radius: 25px;
@@ -30,10 +31,10 @@
   cursor: pointer;
   outline: none;
   &:hover {
-    background-color: lighten(#e535ab, 0.1);
+    background-color: lighten(#e535ab, 0.2);
   }
   &:active {
-    background-color: lighten(#e535ab, 0.2);
+    background-color: lighten(#e535ab, 0.4);
   }
 }
 
@@ -48,7 +49,7 @@
     border-radius: 4px;
     color: var(--text);
     padding: 0.5rem 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     width: 100%;
     &::placeholder {
       color: var(--text-secondary);

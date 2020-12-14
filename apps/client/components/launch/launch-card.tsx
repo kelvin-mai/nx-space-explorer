@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import { Launch } from '@space-explorer/graphql/react';
 import { getBgImg } from '@space-explorer/next-lib';

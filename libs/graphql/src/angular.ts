@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import * as Apollo from 'apollo-angular';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -182,6 +184,19 @@ export type UserResultFragment = (
   & Pick<User, 'id' | 'email'>
 );
 
+export type TripUpdateResultFragment = (
+  { __typename?: 'TripUpdateResponse' }
+  & Pick<TripUpdateResponse, 'success' | 'message'>
+  & { launches?: Maybe<Array<Maybe<(
+    { __typename?: 'Launch' }
+    & { mission?: Maybe<(
+      { __typename?: 'Mission' }
+      & Pick<Mission, 'name' | 'missionPatch'>
+    )> }
+    & LaunchResultFragment
+  )>>> }
+);
+
 export type MyTripsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -191,6 +206,10 @@ export type MyTripsQuery = (
     { __typename?: 'User' }
     & { trips?: Maybe<Array<Maybe<(
       { __typename?: 'Launch' }
+      & { mission?: Maybe<(
+        { __typename?: 'Mission' }
+        & Pick<Mission, 'name' | 'missionPatch'>
+      )> }
       & LaunchResultFragment
     )>>> }
     & UserResultFragment
@@ -207,6 +226,38 @@ export type LoginMutation = (
   & Pick<Mutation, 'login'>
 );
 
+export type BookTripsMutationVariables = Exact<{
+  ids: Array<Maybe<Scalars['ID']>>;
+}>;
+
+
+export type BookTripsMutation = (
+  { __typename?: 'Mutation' }
+  & { bookTrips: (
+    { __typename?: 'TripUpdateResponse' }
+    & TripUpdateResultFragment
+  ) }
+);
+
+export type CancelTripMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type CancelTripMutation = (
+  { __typename?: 'Mutation' }
+  & { cancelTrip: (
+    { __typename?: 'TripUpdateResponse' }
+    & TripUpdateResultFragment
+  ) }
+);
+
+export const UserResultFragmentDoc = gql`
+    fragment UserResult on User {
+  id
+  email
+}
+    `;
 export const LaunchResultFragmentDoc = gql`
     fragment LaunchResult on Launch {
   id
@@ -218,12 +269,19 @@ export const LaunchResultFragmentDoc = gql`
   }
 }
     `;
-export const UserResultFragmentDoc = gql`
-    fragment UserResult on User {
-  id
-  email
+export const TripUpdateResultFragmentDoc = gql`
+    fragment TripUpdateResult on TripUpdateResponse {
+  success
+  message
+  launches {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: LARGE)
+    }
+  }
 }
-    `;
+    ${LaunchResultFragmentDoc}`;
 export const GetLaunchesDocument = gql`
     query GetLaunches($size: PatchSize, $cursor: String) {
   launches(cursor: $cursor) {
@@ -304,6 +362,10 @@ export const MyTripsDocument = gql`
     ...UserResult
     trips {
       ...LaunchResult
+      mission {
+        name
+        missionPatch(size: LARGE)
+      }
     }
   }
 }
@@ -331,6 +393,42 @@ export const LoginDocument = gql`
   })
   export class LoginGQL extends Apollo.Mutation<LoginMutation, LoginMutationVariables> {
     document = LoginDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const BookTripsDocument = gql`
+    mutation BookTrips($ids: [ID]!) {
+  bookTrips(launchIds: $ids) {
+    ...TripUpdateResult
+  }
+}
+    ${TripUpdateResultFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class BookTripsGQL extends Apollo.Mutation<BookTripsMutation, BookTripsMutationVariables> {
+    document = BookTripsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CancelTripDocument = gql`
+    mutation CancelTrip($id: ID!) {
+  cancelTrip(launchId: $id) {
+    ...TripUpdateResult
+  }
+}
+    ${TripUpdateResultFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CancelTripGQL extends Apollo.Mutation<CancelTripMutation, CancelTripMutationVariables> {
+    document = CancelTripDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

@@ -1,5 +1,3 @@
-import React from 'react';
-import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import {
   useLoginMutation,
@@ -10,9 +8,7 @@ import cookie from 'js-cookie';
 import { Loader, EmailForm } from '../components/common';
 import { Layout } from '../components/layout';
 
-export interface LoginProps {}
-
-export const Login: NextPage<LoginProps> = () => {
+export const Login = () => {
   const [login, { loading }] = useLoginMutation({
     notifyOnNetworkStatusChange: true,
   });

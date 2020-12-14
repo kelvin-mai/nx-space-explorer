@@ -1,5 +1,3 @@
-import React from 'react';
-
 import scss from './common.module.scss';
 import { ReactComponent as Logo } from '../../public/assets/logo.svg';
 

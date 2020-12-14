@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 import cookie from 'js-cookie';
 import { useMyTripsQuery } from '@space-explorer/graphql/react';
@@ -10,10 +9,10 @@ import { ReactComponent as ProfileIcon } from '../../public/assets/icons/profile
 import { ReactComponent as LogoutIcon } from '../../public/assets/icons/exit.svg';
 
 export const Footer = () => {
-  const { data, loading, refetch } = useMyTripsQuery();
+  const { data, loading, client } = useMyTripsQuery();
   const logout = async () => {
     cookie.remove('token');
-    await refetch();
+    client.cache.evict({ fieldName: 'me' });
   };
   return (
     <footer className={scss.footer}>

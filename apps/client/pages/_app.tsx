@@ -1,7 +1,6 @@
-import React from 'react';
 import { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { useApolloStore } from '@space-explorer/next-lib';
+import { useApolloStore, CartProvider } from '@space-explorer/next-lib';
 
 import './styles.css';
 
@@ -10,7 +9,9 @@ const CustomApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ApolloProvider client={apollo}>
-      <Component {...pageProps} />
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
     </ApolloProvider>
   );
 };
