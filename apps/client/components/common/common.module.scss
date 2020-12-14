@@ -23,7 +23,7 @@
   border: none;
   border-radius: 25px;
   font-family: inherit;
-  font-size: 700;
+  font-weight: 700;
   color: white;
   text-transform: uppercase;
   background-color: var(--accent);
@@ -39,9 +39,19 @@
 
 .email-form {
   label {
-
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 700;
   }
   input {
-
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    &::placeholder {
+      color: var(--text-secondary);
+    }
   }
 }

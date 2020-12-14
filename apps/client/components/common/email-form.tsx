@@ -21,7 +21,7 @@ export const EmailForm: React.FC<EmailFormProps> = ({ onSubmit }) => {
         id="login"
         type="email"
         name="email"
-        placeholder="Email"
+        placeholder="Login Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
