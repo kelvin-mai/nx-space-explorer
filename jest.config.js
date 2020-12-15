@@ -3,5 +3,6 @@ module.exports = {
     '<rootDir>/apps/server',
     '<rootDir>/libs/graphql',
     '<rootDir>/libs/types',
+    '<rootDir>/apps/client',
   ],
 };
