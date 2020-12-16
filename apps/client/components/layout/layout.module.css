@@ -1,0 +1,21 @@
+.header {
+  width: 100%;
+  padding: 2.5rem;
+  position: relative;
+}
+.curve {
+  height: 4rem;
+  width: 100%;
+  fill: var(--primary);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.logo {
+  height: 3rem;
+  z-index: 10;
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

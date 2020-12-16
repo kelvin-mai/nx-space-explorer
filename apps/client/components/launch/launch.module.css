@@ -1,0 +1,13 @@
+.card {
+  padding: 4rem 5rem;
+  border-radius: 7px;
+  color: white;
+  background-size: cover;
+  background-position: center;
+}
+a.card {
+  display: block;
+  height: 193px;
+  margin: 1rem;
+  text-decoration: none;
+}

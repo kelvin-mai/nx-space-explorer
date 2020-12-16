@@ -1,0 +1,33 @@
+fragment LaunchResult on Launch {
+  id
+  site
+  rocket {
+    id
+    name
+    type
+  }
+}
+
+query GetLaunches($size: PatchSize, $cursor: String) {
+  launches(cursor: $cursor) {
+    cursor
+    hasMore
+    launches {
+      ...LaunchResult
+      mission {
+        name
+        missionPatch(size: $size)
+      }
+    }
+  }
+}
+
+query GetLaunch($id: ID!, $size: PatchSize) {
+  launch(id: $id) {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: $size)
+    }
+  }
+}

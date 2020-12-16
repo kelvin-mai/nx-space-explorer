@@ -106,6 +106,55 @@ export type TripUpdateResponse = {
   launches?: Maybe<Array<Maybe<Launch>>>;
 };
 
+export type LaunchResultFragment = (
+  { __typename?: 'Launch' }
+  & Pick<Launch, 'id' | 'site'>
+  & { rocket?: Maybe<(
+    { __typename?: 'Rocket' }
+    & Pick<Rocket, 'id' | 'name' | 'type'>
+  )> }
+);
+
+export type GetLaunchesQueryVariables = Exact<{
+  size?: Maybe<PatchSize>;
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetLaunchesQuery = (
+  { __typename?: 'Query' }
+  & { launches: (
+    { __typename?: 'LaunchConnection' }
+    & Pick<LaunchConnection, 'cursor' | 'hasMore'>
+    & { launches: Array<Maybe<(
+      { __typename?: 'Launch' }
+      & { mission?: Maybe<(
+        { __typename?: 'Mission' }
+        & Pick<Mission, 'name' | 'missionPatch'>
+      )> }
+      & LaunchResultFragment
+    )>> }
+  ) }
+);
+
+export type GetLaunchQueryVariables = Exact<{
+  id: Scalars['ID'];
+  size?: Maybe<PatchSize>;
+}>;
+
+
+export type GetLaunchQuery = (
+  { __typename?: 'Query' }
+  & { launch?: Maybe<(
+    { __typename?: 'Launch' }
+    & { mission?: Maybe<(
+      { __typename?: 'Mission' }
+      & Pick<Mission, 'name' | 'missionPatch'>
+    )> }
+    & LaunchResultFragment
+  )> }
+);
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -116,7 +165,97 @@ export type LoginMutation = (
   & Pick<Mutation, 'login'>
 );
 
+export const LaunchResultFragmentDoc = gql`
+    fragment LaunchResult on Launch {
+  id
+  site
+  rocket {
+    id
+    name
+    type
+  }
+}
+    `;
+export const GetLaunchesDocument = gql`
+    query GetLaunches($size: PatchSize, $cursor: String) {
+  launches(cursor: $cursor) {
+    cursor
+    hasMore
+    launches {
+      ...LaunchResult
+      mission {
+        name
+        missionPatch(size: $size)
+      }
+    }
+  }
+}
+    ${LaunchResultFragmentDoc}`;
 
+/**
+ * __useGetLaunchesQuery__
+ *
+ * To run a query within a React component, call `useGetLaunchesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLaunchesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLaunchesQuery({
+ *   variables: {
+ *      size: // value for 'size'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useGetLaunchesQuery(baseOptions?: Apollo.QueryHookOptions<GetLaunchesQuery, GetLaunchesQueryVariables>) {
+        return Apollo.useQuery<GetLaunchesQuery, GetLaunchesQueryVariables>(GetLaunchesDocument, baseOptions);
+      }
+export function useGetLaunchesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLaunchesQuery, GetLaunchesQueryVariables>) {
+          return Apollo.useLazyQuery<GetLaunchesQuery, GetLaunchesQueryVariables>(GetLaunchesDocument, baseOptions);
+        }
+export type GetLaunchesQueryHookResult = ReturnType<typeof useGetLaunchesQuery>;
+export type GetLaunchesLazyQueryHookResult = ReturnType<typeof useGetLaunchesLazyQuery>;
+export type GetLaunchesQueryResult = Apollo.QueryResult<GetLaunchesQuery, GetLaunchesQueryVariables>;
+export const GetLaunchDocument = gql`
+    query GetLaunch($id: ID!, $size: PatchSize) {
+  launch(id: $id) {
+    ...LaunchResult
+    mission {
+      name
+      missionPatch(size: $size)
+    }
+  }
+}
+    ${LaunchResultFragmentDoc}`;
+
+/**
+ * __useGetLaunchQuery__
+ *
+ * To run a query within a React component, call `useGetLaunchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLaunchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLaunchQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      size: // value for 'size'
+ *   },
+ * });
+ */
+export function useGetLaunchQuery(baseOptions: Apollo.QueryHookOptions<GetLaunchQuery, GetLaunchQueryVariables>) {
+        return Apollo.useQuery<GetLaunchQuery, GetLaunchQueryVariables>(GetLaunchDocument, baseOptions);
+      }
+export function useGetLaunchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLaunchQuery, GetLaunchQueryVariables>) {
+          return Apollo.useLazyQuery<GetLaunchQuery, GetLaunchQueryVariables>(GetLaunchDocument, baseOptions);
+        }
+export type GetLaunchQueryHookResult = ReturnType<typeof useGetLaunchQuery>;
+export type GetLaunchLazyQueryHookResult = ReturnType<typeof useGetLaunchLazyQuery>;
+export type GetLaunchQueryResult = Apollo.QueryResult<GetLaunchQuery, GetLaunchQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!) {
   login(email: $email)
