@@ -1,6 +1,7 @@
 import { PatchSize, useGetLaunchesQuery } from '@space-explorer/graphql/react';
-import { LaunchCard } from '../components/launch';
 
+import { Loader } from '../components/common';
+import { LaunchCard } from '../components/launch';
 import { Layout } from '../components/layout';
 
 export function Index() {
@@ -14,7 +15,7 @@ export function Index() {
     <Layout title="Home Page">
       {Boolean(data?.launches) &&
         data.launches.launches.map((l) => <LaunchCard key={l.id} {...l} />)}
-      {loading && 'Loading...'}
+      {loading && <Loader />}
     </Layout>
   );
 }
