@@ -55,8 +55,7 @@
       "root": "libs/graphql",
       "sourceRoot": "libs/graphql/src",
       "projectType": "library",
-      "schematics": {
-      },
+      "schematics": {},
       "architect": {
         "generate": {
           "builder": "@nrwl/workspace:run-commands",
@@ -67,7 +66,7 @@
               }
             ]
           }
-        }, 
+        },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
@@ -176,6 +175,19 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/client-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "next-lib": {
+      "root": "libs/next-lib",
+      "sourceRoot": "libs/next-lib/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/next-lib/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }

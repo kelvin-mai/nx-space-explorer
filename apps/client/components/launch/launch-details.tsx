@@ -1,6 +1,6 @@
 import { Launch } from '@space-explorer/graphql/react';
+import { getBgImg } from '@space-explorer/next-lib';
 
-import { getBgImg } from '.';
 import css from './launch.module.css';
 
 export interface LaunchDetailsProps extends Launch {}

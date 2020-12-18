@@ -1,12 +1,8 @@
 import Link from 'next/link';
 import { Launch } from '@space-explorer/graphql/react';
+import { getBgImg } from '@space-explorer/next-lib';
 
 import css from './launch.module.css';
-
-const images = ['iss', 'moon', 'space'];
-
-export const getBgImg = (id: string) =>
-  `url('/assets/images/${images[Number(id) % images.length]}.jpg')`;
 
 export interface LaunchCardProps extends Launch {}
 

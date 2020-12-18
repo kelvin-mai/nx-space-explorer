@@ -1,15 +1,13 @@
 import React from 'react';
 import { AppProps } from 'next/app';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
+
+import { useApolloStore } from '@space-explorer/next-lib';
 
 import './styles.css';
 
-const client = new ApolloClient({
-  uri: 'http://localhost:3333/graphql',
-  cache: new InMemoryCache(),
-});
-
 function CustomApp({ Component, pageProps }: AppProps) {
+  const client = useApolloStore(pageProps.initialApolloState);
   return (
     <ApolloProvider client={client}>
       <Component {...pageProps} />
