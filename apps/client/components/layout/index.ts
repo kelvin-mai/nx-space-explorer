@@ -1,2 +1,2 @@
 export * from './layout';
-export * from './user-header';
+export * from './page-header';

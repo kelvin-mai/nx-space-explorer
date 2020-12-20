@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useGetLaunchAndMeLazyQuery } from '@space-explorer/graphql/react';
+import {
+  PatchSize,
+  useGetLaunchAndMeLazyQuery,
+} from '@space-explorer/graphql/react';
 import { useCart } from '@space-explorer/next-lib';
 
-import { Layout, UserHeader } from '../../components/layout';
+import { Layout, PageHeader } from '../../components/layout';
 import { LaunchDetails } from '../../components/launch';
 import { Loader, Button } from '../../components/common';
 
@@ -14,14 +17,20 @@ export const Launch = () => {
   const [query, { data, loading }] = useGetLaunchAndMeLazyQuery();
   useEffect(() => {
     if (id && typeof id === 'string') {
-      query({ variables: { id } });
+      query({ variables: { id, size: PatchSize.Large } });
     }
   }, [id]);
   return (
     <Layout title="Launch Details">
       {!loading && data ? (
         <>
-          <UserHeader email={data.me?.email}>Space Explorer</UserHeader>
+          <PageHeader
+            subTitle={data.me?.email}
+            imgSrc={data.launch.mission.missionPatch}
+            imgAlt={data.launch.mission.name}
+          >
+            {data.launch.mission.name}
+          </PageHeader>
           <LaunchDetails {...data.launch} />
           {isInCart(data.launch) ? (
             <Button onClick={() => removeFromCart(data.launch)}>

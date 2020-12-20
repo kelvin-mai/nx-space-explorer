@@ -1,6 +1,6 @@
 import { Launch } from '@space-explorer/graphql/react';
 
-import { UserHeader } from '../layout';
+import { PageHeader } from '../layout';
 import { LaunchCard } from '../launch';
 
 interface UserListProps {
@@ -11,7 +11,13 @@ interface UserListProps {
 
 export const UserList: React.FC<UserListProps> = ({ title, email, trips }) => (
   <>
-    <UserHeader email={email}>{title}</UserHeader>
+    <PageHeader
+      subTitle={email}
+      imgSrc="/assets/images/dog-1.png"
+      imgAlt="space dog"
+    >
+      {title}
+    </PageHeader>
     {Boolean(trips) && trips.map((l) => <LaunchCard key={l.id} {...l} />)}
   </>
 );
