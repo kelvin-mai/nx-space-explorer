@@ -41,6 +41,7 @@
     "document-register-element": "1.13.1",
     "graphql": "^15.4.0",
     "graphql-tools": "^7.0.2",
+    "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "next": "10.0.1",
     "pg": "^8.5.1",

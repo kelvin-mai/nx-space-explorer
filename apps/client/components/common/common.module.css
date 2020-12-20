@@ -15,3 +15,39 @@
   transform-origin: center;
   animation: spin 1s linear infinite;
 }
+
+.button {
+  display: block;
+  min-width: 200px;
+  height: 50px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 0 2rem;
+  border: none;
+  border-radius: 25px;
+  font-family: inherit;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  background-color: var(--accent);
+  cursor: pointer;
+  outline: none;
+}
+
+.email-form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.email-form input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  color: var(--text);
+}
+.email-form input::placeholder {
+  color: var(--text-secondary);
+}

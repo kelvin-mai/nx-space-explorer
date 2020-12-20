@@ -1,5 +1,7 @@
 import {
   ApolloClient,
+  ApolloLink,
+  concat,
   FieldMergeFunction,
   HttpLink,
   InMemoryCache,
@@ -7,8 +9,16 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client';
 import fetch from 'cross-fetch';
+import cookies from 'js-cookie';
 import { useMemo } from 'react';
 import { LaunchConnection } from '@space-explorer/graphql/react';
+
+const getToken = () => {
+  if (!process.browser) {
+    return null;
+  }
+  return `Bearer ${cookies.get('token')}`;
+};
 
 const mergePagination: FieldMergeFunction<LaunchConnection> = (
   existing,
@@ -40,6 +50,15 @@ const httpLink = new HttpLink({
   fetch: fetch,
 });
 
+const authLink = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      authorization: getToken(),
+    },
+  });
+  return forward(operation);
+});
+
 let globalApollo = null;
 
 export const createClient = (
@@ -47,7 +66,7 @@ export const createClient = (
 ): ApolloClient<NormalizedCacheObject> => {
   if (!globalApollo) {
     globalApollo = new ApolloClient({
-      link: httpLink,
+      link: concat(authLink, httpLink),
       ssrMode: !process.browser,
       cache: new InMemoryCache(cacheOptions).restore(initialState || {}),
     });
