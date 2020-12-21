@@ -1,0 +1,56 @@
+import Link from 'next/link';
+import { useMyTripsQuery } from '@space-explorer/graphql/react';
+import cookie from 'js-cookie';
+
+import css from './layout.module.css';
+import { ReactComponent as HomeIcon } from '../../public/assets/icons/home.svg';
+import { ReactComponent as CartIcon } from '../../public/assets/icons/cart.svg';
+import { ReactComponent as ProfileIcon } from '../../public/assets/icons/profile.svg';
+import { ReactComponent as LogoutIcon } from '../../public/assets/icons/exit.svg';
+
+export const Footer = () => {
+  const { data, loading, client } = useMyTripsQuery();
+  const logout = () => {
+    cookie.remove('token');
+    client.cache.evict({ fieldName: 'me' });
+  };
+  return (
+    <footer className={css.footer}>
+      <nav className={css.container}>
+        <Link href="/">
+          <a>
+            <HomeIcon />
+            Home
+          </a>
+        </Link>
+        {!loading && data?.me ? (
+          <>
+            <Link href="/cart">
+              <a>
+                <CartIcon />
+                Cart
+              </a>
+            </Link>
+            <Link href="/profile">
+              <a>
+                <ProfileIcon />
+                Profile
+              </a>
+            </Link>
+            <a onClick={logout}>
+              <LogoutIcon />
+              Logout
+            </a>
+          </>
+        ) : (
+          <Link href="/login">
+            <a>
+              <ProfileIcon />
+              Login
+            </a>
+          </Link>
+        )}
+      </nav>
+    </footer>
+  );
+};

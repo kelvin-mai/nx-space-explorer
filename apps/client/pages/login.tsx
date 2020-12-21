@@ -13,12 +13,13 @@ export const Login = () => {
   const [login, { loading }] = useLoginMutation({
     notifyOnNetworkStatusChange: true,
   });
-  const { data } = useMyTripsQuery();
+  const { data, refetch } = useMyTripsQuery();
   const router = useRouter();
   const handleSubmit = async (value: string) => {
     const result = await login({ variables: { email: value } });
     if (!result.errors) {
       cookie.set('token', result.data.login);
+      await refetch();
     }
   };
   if (data?.me) {
