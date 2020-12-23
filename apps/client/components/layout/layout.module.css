@@ -61,3 +61,24 @@
   fill: var(--text-secondary);
   margin: 0 auto 0.5rem;
 }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4.5rem;
+}
+
+.img {
+  height: 135px;
+  margin-right: 2.5rem;
+  border-radius: 50%;
+}
+
+.title {
+  text-align: right;
+}
+
+.sub-title {
+  margin-top: 1rem;
+}
