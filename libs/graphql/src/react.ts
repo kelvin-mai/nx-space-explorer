@@ -165,6 +165,7 @@ export type GetLaunchAndMeQuery = (
   { __typename?: 'Query' }
   & { launch?: Maybe<(
     { __typename?: 'Launch' }
+    & Pick<Launch, 'isBooked'>
     & { mission?: Maybe<(
       { __typename?: 'Mission' }
       & Pick<Mission, 'name' | 'missionPatch'>
@@ -367,6 +368,7 @@ export const GetLaunchAndMeDocument = gql`
       name
       missionPatch(size: $size)
     }
+    isBooked
   }
   me {
     ...UserResult

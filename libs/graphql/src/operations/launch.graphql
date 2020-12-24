@@ -39,6 +39,7 @@ query GetLaunchAndMe($id: ID!, $size: PatchSize) {
       name
       missionPatch(size: $size)
     }
+    isBooked
   }
   me {
     ...UserResult
